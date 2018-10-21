@@ -1,0 +1,23 @@
+{% include "usersapp/header.html" %} {% load crispy_forms_tags %}
+<title> </title>
+{% block block %} {% if messages %}
+<div class="container">
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true"> &times;</span>
+                    </button> {% for message in messages %} {{ message }} {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8 bg-light text-dark">
+        <form action="" method="post"> {% csrf_token %} {{form|crispy}}
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Add">
+        </form>
+    </div>
+</div>
+
+{% endblock block %}

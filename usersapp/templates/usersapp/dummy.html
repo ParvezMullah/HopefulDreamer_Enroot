@@ -1,0 +1,69 @@
+{% include 'usersapp/header.html' %}
+<title> {% block title %} Product {% endblock title %} </title>
+{% block block %} {% if object_list %}
+<section class="newproduct bgwhite p-t-45 p-b-105">
+    <div class="container">
+
+        <div class="wrap-slick2">
+            <div class="slick2">
+                {% for sub_article in object_list %} {% if forloop.first %}
+                <div class="row">{% endif %}
+                    <div class="col-4">
+                        <div class="item-slick2 p-l-15 p-r-15">
+                            <!-- Block2 -->
+                            <div class="block2">
+                                <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
+                                    {% if sub_article.image.url != ""%}
+                                    <img src="{{sub_article.picture.url}}" alt="IMG-PRODUCT"> {% endif %}
+
+                                    <div class="block2-overlay trans-0-4">
+                                        <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
+                                            <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
+                                            <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+                                        </a>
+
+                                        <div class="block2-btn-addcart w-size1 trans-0-4">
+                                            <!-- Button -->
+                                            <button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
+                                            Add to Cart
+                                        </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="block2-txt p-t-20">
+                                    <a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+                                {{sub_article.title}}
+                                </a>
+
+                                    <span class="block2-price m-text6 p-r-5">
+                                {{sub_article.price}}
+                                </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:3 %}</div>
+                <div class="row">{% endif %} {% if forloop.last %}</div>{% endif %} {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %} {% if is_paginated %}
+<ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+    {% else %}
+    <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a></li>
+    {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
+    <li class="page-item active"><a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></span></a> </li>
+    {% else %}
+    <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+    {% endif %} {% endfor %} {% if page_obj.has_next %}
+    <li><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+    {% else %}
+    <li class="page-item disabled"> <a class="page-link" href="#" tabindex="-1">Next</a></li>
+    {% endif %}
+</ul>
+{% endif %} {% endblock block %}
